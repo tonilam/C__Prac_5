@@ -117,6 +117,9 @@ void create_racer_bitmap(char** bitmap, int number) {
 	//		|X|
 	//		|_/
 
+	//void *malloc(size_t size) 
+	bitmap = (char *) malloc(BITMAP_LENGTH * sizeof *bitmap);
+	sprintf(bitmap, " _ | \\|%d||_/", number % 10);
 }
 
 void free_racers(sprite_id* racers, int racer_count) {
@@ -124,6 +127,12 @@ void free_racers(sprite_id* racers, int racer_count) {
 	// of main for some hints. A good rule of thumb is whatever you dynamically
 	// allocate (i.e. with a malloc), must be met with a free (there is also a
 	// sneaking one hiding in sprite library..)
+	
+	for (int i = 0; i < racer_count; ++i) {
+		free(racer[i]->bitmap);
+		free(racer[i]);
+	}
+	free(racer);
 	
 }
 
